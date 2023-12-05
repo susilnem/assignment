@@ -23,7 +23,7 @@ func AdminAuthMiddleware() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		err := utils.ValidateAdminJWT(context)
 		if err != nil {
-			context.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication required"})
+			context.JSON(http.StatusUnauthorized, gin.H{"error": "You don't have permission to access this route"})
 			context.Abort()
 			return
 		}
