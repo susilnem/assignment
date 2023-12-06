@@ -9,6 +9,7 @@ import (
 
 	_ "go-jwt/docs"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerfiles "github.com/swaggo/files"
@@ -41,7 +42,7 @@ func main() {
 
 	app := gin.Default()
 
-	app.Use(gin.Logger())
+	app.Use(cors.Default(), gin.Logger())
 
 	// set up routes
 	router.Route(app)
@@ -55,6 +56,7 @@ func main() {
 	port := os.Getenv("SERVER_PORT")
 
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+
 	// run server on port 8080
 	app.Run(port)
 	fmt.Println("Server running on " + port + " port")
